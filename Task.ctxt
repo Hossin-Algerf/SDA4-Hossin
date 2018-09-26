@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=Task
+comment0.text=\n\ Write\ a\ description\ of\ class\ Task\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=taskTitle\ taskProject\ taskDueDate\ taskDescription
+comment1.target=Task(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+numComments=2
