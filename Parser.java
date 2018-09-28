@@ -53,5 +53,9 @@ public class Parser
     {
         commands.showAll();
     }
+    
+    public String nextLine(){
+         return reader.nextLine();
+    }
 }
 

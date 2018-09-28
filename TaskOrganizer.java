@@ -5,7 +5,7 @@ import java.util.*;
 import java.lang.*; 
 import java.io.*;
 /**
- * A class that to creates and manages tasks .
+ * The main class that to creates and manages tasks .
  *
  * @author Hossin algerf 
  * @version 1
@@ -126,15 +126,15 @@ import java.io.*;
      */
     public void addTask()
     {
-       Scanner input = new Scanner(System.in);
+       
         System.out.println("Plz enter title : ");
-        String title = input.nextLine();
+        String title = parser.nextLine();
         System.out.println("Plz enter project : ");
-        String project = input.nextLine();
+        String project = parser.nextLine();
         System.out.println("Plz enter dueDate : ");
-        String dueDate = input.nextLine();
+        String dueDate = parser.nextLine();
         System.out.println("Plz enter description : ");
-        String description = input.nextLine();
+        String description = parser.nextLine();
 
        
         TaskList.add(new Task(title,project,dueDate,description)); 
