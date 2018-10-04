@@ -1,7 +1,5 @@
 import java.util.Scanner;
-import java.util.*; 
-import java.lang.*; 
-import java.io.*;
+import java.util.ArrayList;
 import java.util.Iterator;
 /**
  * A class that contructs tasks.
@@ -29,7 +27,9 @@ public class Task
  description=taskDescription;
  status= false;
 
- }
+  }
+  
+
   public String getTitle()
     {
     return title ;
@@ -55,7 +55,47 @@ public class Task
     return status ;
     }  
     
+  // setter for all Task details exluding Done  
+  public void setDetails(String newTitle,String newProject ,String newDueDate,String newDescription)
+    {
+        title =newTitle ;
+        project=newProject ;
+        dueDate = newDueDate;
+        description = newDescription ;
+    }
     
+    // setter for each field individually
+  public void setTitle (String newTitle)
+  {
+    title =newTitle ; 
+  }
+  
+  public void setProject (String newProject)
+   {
+    project=newProject ;  ; 
+   }
+  
+  public void setDueDate (String newDueDate)
+   {
+    dueDate = newDueDate; ;  
+   }  
+  
+  public void setDescription (String newDescription)
+   {
+    description = newDescription ;   
+   }  
+  
+  public void setStatus ( Boolean newStatus ) 
+   {
+    status= newStatus ;  
+   }  
+  
+  //mark as done
+  public void MarkDone ()
+   {
+   status= true ;
+   }
+  
 }
 
  

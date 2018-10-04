@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.*; 
 import java.lang.*; 
 import java.io.*;
+import java.util.Iterator;
 /**
  * The main class that to creates and manages tasks .
  *
@@ -51,7 +52,7 @@ import java.io.*;
     private void printWelcome()
     {
         int done ;
-        done = getDone(TaskList);
+        done = gotDone(TaskList);
         System.out.println();
         System.out.println("Welcome to Task editor!");
         System.out.println("You have "+ (TaskList.size() - done) +" tasks todo and "+ done +" tasks are done!");/////// X Y
@@ -94,6 +95,9 @@ import java.io.*;
                 ;
                 break;
                 
+             case EditDetails:
+                editTaskDeatails();
+                break;               
 
             case SaveAndQuit:
                 ;
@@ -106,8 +110,12 @@ import java.io.*;
             case ByProject:
                 ;
                 break;
-                
-                
+            case MarkAsDone:
+                MarkItDone();
+                break;                
+            case RemoveTask:
+                 removeATask();                
+                break;
         }
         return wantToQuit;
     }
@@ -126,33 +134,166 @@ import java.io.*;
      */
     public void addTask()
     {
-       
-        System.out.println("Plz enter title : ");
+         
+        
+        System.out.println("Enter title : ");
         String title = parser.nextLine();
-        System.out.println("Plz enter project : ");
+        for (Iterator<Task> it = TaskList.iterator() ; it.hasNext();){
+            Task TaskList = it.next();
+            if (!(TaskList.getTitle().equals(title))){
+            }
+            else{
+            System.out.println("this Title is used already,please try new");
+            addTask();
+            return;
+        }
+          
+            }
+            
+            
+        System.out.println("Enter project : ");
         String project = parser.nextLine();
-        System.out.println("Plz enter dueDate : ");
+        System.out.println("Enter dueDate : ");
         String dueDate = parser.nextLine();
-        System.out.println("Plz enter description : ");
+        System.out.println("Enter description : ");
         String description = parser.nextLine();
 
        
         TaskList.add(new Task(title,project,dueDate,description)); 
         
-    }
+      }
+   
     
     /** calculates how many tasks are done 
     */
-    public int getDone(ArrayList<Task> tasklist)
+    public int gotDone(ArrayList<Task> Tasklist)
     {
     int x = 0;
-    for (Task t : tasklist) { 
+    for (Task t : Tasklist) { 
        if (t.getStatus() == true)
         x++;
     }
     return x;
     }
+
+       public void removeATask ()
+    {
+        System.out.println("Plz enter title of a task to remove: ");
+        String titleRemove = parser.nextLine();
+        
+        for (Iterator<Task> it = TaskList.iterator() ; it.hasNext();){
+            Task TaskList = it.next();
+            if(TaskList.getTitle().equals(titleRemove)){
+                it.remove();
+                System.out.println("Task by title ( "+ (titleRemove) +" )is removed");
+            }
+            
+    }
+   }  
+    
+  public void MarkItDone()
+  {
+        System.out.println("Plz enter title of a task to mark as Done: ");
+        String titleDone = parser.nextLine();
+        
+        for (Iterator<Task> it = TaskList.iterator() ; it.hasNext();){
+            Task TaskList = it.next();
+            if(TaskList.getTitle().equals(titleDone)){
+                TaskList.MarkDone();
+                System.out.println("Task by title ( "+ (titleDone) +" )is marked as Done");
+            }
+            
+    }      
+  }
+ 
+    ///***** have to keep old if not entered , after else
+    public void editTaskDeatails()
+    {
+       
+        System.out.println("Plz enter title of a task to edit: ");
+        String title2 = parser.nextLine();  
+         String newTitle;
+         String newProject ;
+         String newDueDate ;
+         String newDescription;
+         
+         String getTitle;
+         String getProject;
+         String getDueDate;
+         String getDescription;
+        for (Iterator<Task> it = TaskList.iterator() ; it.hasNext();){
+            Task TaskList = it.next();
+            if(TaskList.getTitle().equals(title2)){
+         System.out.println("Enter new title or press (Enter) to keep : ");
+         String title3 = parser.nextLine();
+         
+     //       if (!(TaskList.getTitle().equals(title3))){
+     //             if( title3 != null ){
+      //                   newTitle =  title3 ;
+      //              }
+      //          else{
+     //                   newTitle = TaskList.getTitle() ;
+       //                 System.out.println("title has not changed");
+      //              }
+       //             }
+
+         //           else{
+         //               System.out.println("this Title is used already,please try new");
+          //              return;
+           //         }
+             
+        if( title3 != null ){
+           newTitle =  title3 ;
+        }
+        else{
+          newTitle = TaskList.getTitle() ;
+         System.out.println("title has not changed");  
+        }
+        
+        System.out.println("Enter new Project name or press (Enter) to keep : ");
+        String project3 =parser.nextLine();
+         if(project3 != null){
+           newProject =  project3 ;
+        }
+        else{
+          newProject = TaskList.getProject() ;
+         System.out.println("Project has not changed");  
+        }        
+        System.out.println("Enter new DueDate or press (Enter) to keep : ");
+        String dueDate3=parser.nextLine(); 
+         if(dueDate3 != null){
+           newDueDate =  dueDate3 ;
+        }
+        else{
+          newDueDate = TaskList.getDueDate() ;
+         System.out.println("DueDate has not changed");  
+        }        
+        System.out.println("Enter new Description or press (Enter) to keep : ");
+        String description3=parser.nextLine();
+         if(description3 != null){
+           newDescription =  description3 ;
+        }
+        else{
+          newDescription = TaskList.getDescription() ;
+         System.out.println("DueDate has not changed");  
+        }  
+        
+        
+        TaskList.setDetails(newTitle,newProject ,newDueDate,newDescription);
+        
+     }
+     
+       
+    }    
+        
+
+
+    
+  }
+   
+
 }
+
  
 
     
