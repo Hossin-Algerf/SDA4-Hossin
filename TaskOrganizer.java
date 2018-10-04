@@ -43,7 +43,7 @@ import java.util.Iterator;
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println("Have a nice day, Good bye.");
     }
     
     /**
