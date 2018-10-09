@@ -19,7 +19,7 @@ public class TaskOrganizer
 
     private ArrayList<Task> taskList;
     private Parser parser;
-    private static final String filepath="/Users/H Rig/TaskOrganizerStorage1.txt"; 
+    private static final String filepath="/Users/tmp-sda-1155/TaskOrganizerStorage1.txt"; 
     /**
      * Constructor for class operations .
      */
@@ -401,7 +401,7 @@ public class TaskOrganizer
     /** save existing tasks into a text file.
     */    
      private void writeFile(List<Task> taskList) {
-       String fileName = "/Users/H Rig/TaskOrganizerStorage1.txt";
+       String fileName = "/Users/tmp-sda-1155/TaskOrganizerStorage1.txt";
 
       try {
         FileWriter fileWriter = new FileWriter(fileName);
@@ -422,7 +422,7 @@ public class TaskOrganizer
      private void readFile ()
     {
      try { 
-      Scanner s = new Scanner(new File("/Users/H Rig/TaskOrganizerStorage1.txt"));
+      Scanner s = new Scanner(new File("/Users/tmp-sda-1155/TaskOrganizerStorage1.txt"));
     
       while (s.hasNextLine()) {
        String[] split = s.nextLine().split("   ");
