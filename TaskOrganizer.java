@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.Iterator;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.util.Comparator;
 /**
  * The main class  .
  *
@@ -18,7 +19,7 @@ public class TaskOrganizer
 
     private ArrayList<Task> taskList;
     private Parser parser;
-    private static final String filepath="/Users/tmp-sda-1155/TaskOrganizerStorage1.txt"; 
+    private static final String filepath="/Users/H Rig/TaskOrganizerStorage1.txt"; 
     /**
      * Constructor for class operations .
      */
@@ -28,7 +29,9 @@ public class TaskOrganizer
         taskList = new ArrayList<>();
         parser = new Parser();
     }
+    
 
+    
     /**
      *  Main process routine.  Loops until app exit.
      */
@@ -116,11 +119,11 @@ public class TaskOrganizer
                 break;
 
             case ByDate:
-                ;
+                sortDueDatePrint(taskList);
                 break;
 
             case ByProject:
-                readFile ();
+                sortprojectPrint (taskList);
                 break;
             case MarkAsDone:
                 MarkItDone();
@@ -131,7 +134,37 @@ public class TaskOrganizer
         }
         return wantToQuit;
     }
-
+        /** implementing Comparator to enable sorting  .
+     */
+     public class dueDateSorter implements Comparator<Task>{
+     public int compare(Task o1, Task o2) {
+       return o1.getDueDate().compareTo(o2.getDueDate());
+      }
+     } 
+     
+     public class projectSorter implements Comparator<Task>{
+     public int compare(Task o1, Task o2) {
+       return o1.getProject().compareTo(o2.getProject());
+     }
+     } 
+        /** showing a sorted list of tasks .
+     */     
+        public void sortDueDatePrint(ArrayList<Task> tasklist)
+    {
+        Collections.sort(taskList, new dueDateSorter());
+          for(Task d : taskList) {
+            d.TaskInfo();
+        }
+    }
+    
+    public void sortprojectPrint(ArrayList<Task> tasklist)
+    {
+        Collections.sort(taskList, new projectSorter());
+          for(Task p : taskList) {
+            p.TaskInfo();
+        }
+    } 
+    
     /**
      * excuting command "1" , to show task list .
      */
@@ -197,7 +230,7 @@ public class TaskOrganizer
             }}        
             String status = "todo" ; 
         taskList.add(new Task(title,project,dueDate,description,status));
-    }
+    }   
 
     /** calculates how many tasks are done
      */
@@ -368,7 +401,7 @@ public class TaskOrganizer
     /** save existing tasks into a text file.
     */    
      private void writeFile(List<Task> taskList) {
-       String fileName = "/Users/tmp-sda-1155/TaskOrganizerStorage1.txt";
+       String fileName = "/Users/H Rig/TaskOrganizerStorage1.txt";
 
       try {
         FileWriter fileWriter = new FileWriter(fileName);
@@ -389,7 +422,7 @@ public class TaskOrganizer
      private void readFile ()
     {
      try { 
-      Scanner s = new Scanner(new File("/Users/tmp-sda-1155/TaskOrganizerStorage1.txt"));
+      Scanner s = new Scanner(new File("/Users/H Rig/TaskOrganizerStorage1.txt"));
     
       while (s.hasNextLine()) {
        String[] split = s.nextLine().split("   ");

@@ -1,14 +1,14 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.io.Serializable;
+import java.util.Comparator;
 /**
  * A class that contructs tasks.
  *
  * @author (Hossin algerf)
  * @version (1)
  */
-public class Task implements Serializable
+public class Task
  {
  private String title ;
 
@@ -112,6 +112,8 @@ public class Task implements Serializable
     public String toString() {
     return title + "   " + project + "   " + dueDate + "   " + description+ "   " + status;
   }
+  
+  
 }
 
  
