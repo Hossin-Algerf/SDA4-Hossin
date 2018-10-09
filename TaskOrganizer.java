@@ -8,23 +8,23 @@ import java.util.Iterator;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 /**
- * The main class that to creates and manages tasks .
+ * The main class  .
  *
  * @author Hossin algerf
  * @version 1
  */
 public class TaskOrganizer
 {
-    // instance variables - replace the example below with your own
+
     private ArrayList<Task> taskList;
     private Parser parser;
     private static final String filepath="/Users/tmp-sda-1155/TaskOrganizerStorage1.txt"; 
     /**
-     * Constructor for objects of class Task
+     * Constructor for class operations .
      */
     public TaskOrganizer()
     {
-        // initialise instance variables
+ 
         taskList = new ArrayList<>();
         parser = new Parser();
     }
@@ -34,9 +34,10 @@ public class TaskOrganizer
      */
        public void startTaskOrganizer()
     {
+        readFile ();
         printWelcome();
-
-        /** Enter the main command loop.  Here we repeatedly read commands and
+        
+        /** Enter the main command loop.  repeatedly read commands and
          execute them until the app exits.*/
 
 
@@ -45,7 +46,7 @@ public class TaskOrganizer
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        writeToFile(taskList);
+        writeFile(taskList);
         System.out.println("Thank you for using TaskOrganizer .Good bye.");
 
     }
@@ -55,12 +56,11 @@ public class TaskOrganizer
      */
     private void printWelcome()
     {
-        readFile ();
         int done ;
         done = gotDone(taskList);
         System.out.println();
         System.out.println("Welcome to Task editor!");
-        System.out.println("You have "+ (taskList.size() - done) +" tasks todo and "+ done +" tasks are done!");/////// X Y
+        System.out.println("You have "+ (taskList.size() - done) +" tasks todo and "+ done +" tasks are done!");
         System.out.println("Pick an option:");
         System.out.println("(1) Show Task List (by date or project)");
         System.out.println("(2) Add New Task");
@@ -99,9 +99,7 @@ public class TaskOrganizer
                 break;
 
             case AddNewTask:
-                addTask();/// here i can ask the user to eneter details 1 by 1
-
-                //new Task(String taskTitle,String taskProject ,String taskDueDate,String taskDescription);
+                addTask();
                 break;
 
             case EditTask:
@@ -135,7 +133,7 @@ public class TaskOrganizer
     }
 
     /**
-     * excuting command "1" , showin task list .
+     * excuting command "1" , to show task list .
      */
     public void showTheList()
     {
@@ -197,10 +195,9 @@ public class TaskOrganizer
               else {
                 description1 = false;
             }}        
-            
-        taskList.add(new Task(title,project,dueDate,description));
+            String status = "todo" ; 
+        taskList.add(new Task(title,project,dueDate,description,status));
     }
-
 
     /** calculates how many tasks are done
      */
@@ -208,12 +205,14 @@ public class TaskOrganizer
     {
         int x = 0;
         for (Task t : tasklist) {
-            if (t.getStatus() == true)
+            if (t.getStatus().equals("done"))
                 x++;
         }
         return x;
     }
-
+    
+    /** remove selected task.
+    */   
     public void removeATask ()
     {
         System.out.println("Plz enter title of a task to remove: ");
@@ -228,7 +227,9 @@ public class TaskOrganizer
 
         }
     }
-
+     
+    /** to mark a task as done .
+     */
     public void MarkItDone()
     {
         System.out.println("Plz enter title of a task to mark as Done: ");
@@ -247,19 +248,8 @@ public class TaskOrganizer
             System.out.println("there is no task by this title");        
     }
 
-    public void duplicate (String editTitle)
-    {
-        boolean duplicate1;
-        for (Iterator<Task> it = taskList.iterator() ; it.hasNext();){
-            Task taskList = it.next();
-            if (!(taskList.getTitle().equals(editTitle))){
-                duplicate1 = false ;
-            }
-
-        }
-    }
-
-    ///***** have to keep old if not entered , after else
+    /** editing selected task
+     */
     public void editTaskDeatails()
     {
 
@@ -278,10 +268,9 @@ public class TaskOrganizer
         String getDueDate;
         String getDescription;
         ArrayList<String> titles = getTitleList();
-        //if (titles.contains(title2))
+   
         for (Task t : taskList)
         {
-
             if ((t.getTitle().equals(title2)))
             {
                 finded = true;
@@ -311,6 +300,7 @@ public class TaskOrganizer
                     newTitle = t.getTitle() ;
                     System.out.println("title has not changed ,");
                 }
+                /////////
                 System.out.println("Enter new Project name or press (Enter) to keep : ");
                 String project3 =parser.nextLine();
                 if(!project3.equals("")){
@@ -338,22 +328,18 @@ public class TaskOrganizer
                     newDescription = t.getDescription() ;
                     System.out.println("Description has not changed ,");
                 }
+
+
                 t.setDetails(newTitle,newProject ,newDueDate,newDescription);
 
             }
-            /*else {
-                System.out.println("there is no task by this title");
-                return;
-            }*/
-
         }
         if (finded == false)
             System.out.println("there is no task by this title");
-
     }
 
-    // create arraylist of titles existing in existing Task objects .
-    // i use it for other methods , to avoid exra loops and iterators , and other conflicts .
+    /** check if a title already exists in existing Task objects 
+    */
     private boolean taskListContainsTitle(String titleName)
     {
         for (Task t : taskList)
@@ -366,7 +352,9 @@ public class TaskOrganizer
         }
         return false;
     }
-
+    
+    /** create arraylist of titles existing in existing Task objects .
+    */
     private ArrayList<String> getTitleList()
     {
         ArrayList<String> list = new ArrayList<>();
@@ -376,49 +364,44 @@ public class TaskOrganizer
         }
         return list;
     }
+  
+    /** save existing tasks into a text file.
+    */    
+     private void writeFile(List<Task> taskList) {
+       String fileName = "/Users/tmp-sda-1155/TaskOrganizerStorage1.txt";
 
-    
-    
-    
-    public void writeToFile (ArrayList<Task> tasklist){
+      try {
+        FileWriter fileWriter = new FileWriter(fileName);
 
-      for (int i = 0; i < tasklist.size(); i++) {
-	        try {
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        for (Task ir : taskList) {
 
-	            FileOutputStream fileOut = new FileOutputStream(filepath);
-	            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-	            objectOut.writeObject(taskList.toString());
-	            objectOut.close();
-	            System.out.println("Tasks are saved");
-	 
-	        } catch (Exception ex) {
-	            ex.printStackTrace();
-	        }
-	    }
-	   }
-	   
-	  
-	
-    public void readFile ()
+            bufferedWriter.write(ir.toString() + System.getProperty("line.separator"));
+
+        }
+        bufferedWriter.close();
+      } catch (IOException ex) {
+        System.out.println("Error writing to file (" + fileName + ")");
+      }
+    }
+    /** load tasks from a text file that the app uses to save tasks.
+    */   
+     private void readFile ()
     {
-     try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filepath, true))))   {
-     for(Task b:taskList)
-     {
-     //example  while(){} 
-   
-       
-       
-      
+     try { 
+      Scanner s = new Scanner(new File("/Users/tmp-sda-1155/TaskOrganizerStorage1.txt"));
+    
+      while (s.hasNextLine()) {
+       String[] split = s.nextLine().split("   ");
+        taskList.add(new Task(split[0], split[1], split[2], split[3], split[4])); 
      }
-    }catch (IOException e) {
-       System.out.println(e);
-     }   
-        
-        
-        
-        
+     } catch (IOException ex) {
+        System.out.println("Error loading tasks");
+     }  
     }
 }
+
+
 
 
 

@@ -18,17 +18,17 @@ public class Task implements Serializable
 
  private String description ;
 
- private boolean status;
+ private String status  ;
  
  private static final long serialVersionUID = 1L;
  //Constructor
- public Task (String taskTitle,String taskProject ,String taskDueDate,String taskDescription )
+  public Task (String taskTitle,String taskProject ,String taskDueDate,String taskDescription,String taskstatus)
  {
  title = taskTitle;
  project=taskProject;
  dueDate=taskDueDate;
  description=taskDescription;
- status= false;
+ status= taskstatus;
 
   }
   
@@ -53,12 +53,12 @@ public class Task implements Serializable
     return description ;
     }  
   
-  public boolean getStatus()
+  public String getStatus()
     {
     return status ;
     }  
     
-  // setter for all Task details exluding Done  
+  /** setter for all Task details except status */ 
   public void setDetails(String newTitle,String newProject ,String newDueDate,String newDescription)
     {
         title =newTitle ;
@@ -88,15 +88,16 @@ public class Task implements Serializable
     description = newDescription ;   
    }  
   
-  public void setStatus ( Boolean newStatus ) 
+  public void setStatus ( String newStatus ) 
    {
     status= newStatus ;  
    }  
   
-  //mark as done
+  /**mark a task as done 
+     */
   public void MarkDone ()
    {
-   status= true ;
+   status = "done" ;
    }
   
    public void TaskInfo()
@@ -105,20 +106,12 @@ public class Task implements Serializable
      ".  description: "+(description)+".  done ?: "+(status)); 
 
     }   
-  // to write 
-  /*
-  public String toString() {
 
-   return new StringBuffer("Task title: ").append(this.title)
-   .append("project: ").append(this.project).append("dueDate : ").append(this.dueDate).append
-   (" description: ").append(this.description).append(" done ?: ").append(this.status).toString();
-    }
-*/    
+    /** used for save function 
+     */
     public String toString() {
-
-   return new StringBuffer(this.title + "\n").append
-   (this.project+ "\n").append(this.dueDate+ "\n").append(this.description+ "\n").append(this.status+ "\n").toString();
-    }
+    return title + "   " + project + "   " + dueDate + "   " + description+ "   " + status;
+  }
 }
 
  
