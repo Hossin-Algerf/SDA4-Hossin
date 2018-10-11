@@ -62,33 +62,7 @@ package taskorganizerpackage;
         dueDate = newDueDate;
         description = newDescription ;
     }
-    
-    // setter for each field individually
-  public void setTitle (String newTitle)
-  {
-    title =newTitle ; 
-  }
-  
-  public void setProject (String newProject)
-   {
-    project=newProject ;  
-   }
-  
-  public void setDueDate (String newDueDate)
-   {
-    dueDate = newDueDate; 
-   }  
-  
-  public void setDescription (String newDescription)
-   {
-    description = newDescription ;   
-   }  
-  
-  public void setStatus ( String newStatus ) 
-   {
-    status= newStatus ;  
-   }  
-  
+
   /**mark a task as done 
      */
   public void MarkDone ()

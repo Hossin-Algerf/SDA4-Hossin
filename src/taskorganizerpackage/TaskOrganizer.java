@@ -303,11 +303,6 @@ public class TaskOrganizer
         String newDueDate ;
         String newDescription;
 
-
-        String getTitle;
-        String getProject;
-        String getDueDate;
-        String getDescription;
         ArrayList<String> titles = getTitleList();
 
         for (Task t : taskList)
