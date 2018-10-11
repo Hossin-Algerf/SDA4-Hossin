@@ -115,11 +115,11 @@ public class TaskOrganizer
                 break;
 
             case ByDate:
-                sortDueDatePrint(taskList);
+                sortDueDatePrint();
                 break;
 
             case ByProject:
-                sortProjectPrint (taskList);
+                sortProjectPrint ();
                 break;
             case MarkAsDone:
                 MarkItDone();
@@ -147,7 +147,7 @@ public class TaskOrganizer
 
     /** showing a sorted lists of tasks .
      */
-    public void sortDueDatePrint(ArrayList<Task> tasklist)
+    public void sortDueDatePrint()
     {
         System.out.println("list of tasks sorted by Due date :");
         Collections.sort(taskList, new dueDateSorter());
@@ -156,7 +156,7 @@ public class TaskOrganizer
         }
     }
 
-    public void sortProjectPrint(ArrayList<Task> tasklist)
+    public void sortProjectPrint()
     {
         System.out.println("list of tasks sorted by Project :");
         Collections.sort(taskList, new projectSorter());
@@ -237,14 +237,15 @@ public class TaskOrganizer
             }}
         String status = "Not yet" ;
         taskList.add(new Task(title,project,dueDate,description,status));
+        System.out.println("Task by title("+ (title) +") is created");
     }
 
     /** calculates how many tasks are done
      */
-    public int gotDone(ArrayList<Task> tasklist)
+    public int gotDone(ArrayList<Task> taskList)
     {
         int x = 0;
-        for (Task t : tasklist) {
+        for (Task t : taskList) {
             if (t.getStatus().equals("done"))
                 x++;
         }
@@ -340,7 +341,7 @@ public class TaskOrganizer
                     newTitle = t.getTitle() ;
                     System.out.println("title has not changed ,");
                 }
-                System.out.println("Project of This task is: "+(t.getProject()));
+                System.out.println("Project of this task is: "+(t.getProject()));
                 System.out.println("Enter new Project name or press (Enter) to keep it unchanged: ");
                 String project3 =parser.nextLine();
                 if(!project3.equals("")){
@@ -350,7 +351,7 @@ public class TaskOrganizer
                     newProject = t.getProject() ;
                     System.out.println("Project has not changed ,");
                 }
-                System.out.println("Due date of This task is: "+(t.getDueDate()));
+                System.out.println("Due date of this task is: "+(t.getDueDate()));
                 System.out.println("Type (1)to Enter new DueDate ,or press (Enter) to keep it unchanged: ");
                 String choose =parser.nextLine();
                 if(!choose.equals("")){
@@ -374,7 +375,7 @@ public class TaskOrganizer
                     newDueDate = t.getDueDate() ;
                     System.out.println("DueDate has not changed ,");
                 }
-                System.out.println("Description of This task : "+(t.getDescription())+" .");
+                System.out.println("Description of this task : "+(t.getDescription())+" .");
                 System.out.println("Enter new Description or press (Enter) to keep it unchanged: ");
                 String description3=parser.nextLine();
                 if(!description3.equals("")){
@@ -387,14 +388,14 @@ public class TaskOrganizer
 
 
                 t.setDetails(newTitle,newProject ,newDueDate,newDescription);
-
+                System.out.println("Editing task by title("+ (newTitle) +") is finished");
             }
         }
         if (finded == false)
             System.out.println("there is no task by this title");
     }
 
-    /** check if a title already exists in existing Task objects 
+    /** check if a title already exists in existing Task objects
      */
     private boolean taskListContainsTitle(String titleName)
     {
@@ -409,7 +410,7 @@ public class TaskOrganizer
         return false;
     }
 
-    /** create arraylist of titles existing in existing Task objects .
+    /** create arrayList of titles existing in existing Task objects .
      */
     private ArrayList<String> getTitleList()
     {

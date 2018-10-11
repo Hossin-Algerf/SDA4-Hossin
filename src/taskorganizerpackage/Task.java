@@ -18,13 +18,13 @@ package taskorganizerpackage;
 
   private String status  ;
    //Constructor
-  public Task (String taskTitle,String taskProject ,String taskDueDate,String taskDescription,String taskstatus)
+  public Task (String taskTitle,String taskProject ,String taskDueDate,String taskDescription,String taskStatus)
   {
   title = taskTitle;
   project=taskProject;
   dueDate=taskDueDate;
   description=taskDescription;
-  status= taskstatus;
+  status= taskStatus;
 
   }
   
