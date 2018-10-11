@@ -99,7 +99,7 @@ package taskorganizerpackage;
    public void TaskInfo()
    {
     System.out.println  ("Task title: "+(title)+".  project: "+(project)+".  dueDate : "+(dueDate)+
-    ".  done ?: "+(status));
+    ".  status: "+(status));
      System.out.println ("description: "+(description)); 
 
     }   
@@ -107,7 +107,7 @@ package taskorganizerpackage;
     public void TaskInfoByDate()
    {
     System.out.println  ("Due Date : "+(dueDate)+". Task title: "+(title)+".  project: "+(project)+
-    ".  Done ?: "+(status));
+    ".  status: "+(status));
      System.out.println ("Description: "+(description)); 
 
     }   
@@ -115,7 +115,7 @@ package taskorganizerpackage;
     public void TaskInfoByProject()
    {
     System.out.println  ("project: "+(project)+". Task title: "+(title)+".  Due Date : "+(dueDate)+
-    ".  done ?: "+(status));
+    ".  status: "+(status));
      System.out.println ("description: "+(description)); 
 
     }   

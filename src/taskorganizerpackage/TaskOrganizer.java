@@ -235,7 +235,7 @@ public class TaskOrganizer
             else {
                 description1 = false;
             }}
-        String status = "Not yet" ;
+        String status = "todo" ;
         taskList.add(new Task(title,project,dueDate,description,status));
         System.out.println("Task by title("+ (title) +") is created");
     }
