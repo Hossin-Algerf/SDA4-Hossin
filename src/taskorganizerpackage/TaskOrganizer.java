@@ -73,7 +73,7 @@ public class TaskOrganizer
     private boolean quit(Command command)
     {
 
-        return true;  // signal that we want to quit
+        return true;  // signal that user want to quit
 
     }
 
@@ -138,7 +138,7 @@ public class TaskOrganizer
         System.out.println("list of tasks sorted by Due date :");
         Collections.sort(taskList, new dueDateSorter());
         for(Task d : taskList) {
-            d.TaskInfoByDate();
+            d.taskInfo();
         }
     }
 
@@ -147,7 +147,7 @@ public class TaskOrganizer
         System.out.println("list of tasks sorted by Project :");
         Collections.sort(taskList, new projectSorter());
         for(Task p : taskList) {
-            p.TaskInfoByProject();
+            p.taskInfo();
         }
     }
 

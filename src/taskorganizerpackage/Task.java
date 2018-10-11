@@ -69,29 +69,19 @@ package taskorganizerpackage;
    {
    status = "done" ;
    }
- 
-    public void TaskInfoByDate()
-   {
-    System.out.println  ("Due Date : "+(dueDate)+". Task title: "+(title)+".  project: "+(project)+
-    ".  status: "+(status));
-     System.out.println ("Description: "+(description)); 
 
-    }   
-    
-    public void TaskInfoByProject()
-   {
-    System.out.println  ("project: "+(project)+". Task title: "+(title)+".  Due Date : "+(dueDate)+
-    ".  status: "+(status));
-     System.out.println ("description: "+(description)); 
+      public void taskInfo()
+      {
 
-    }   
+          System.out.println("----------- Task title:  "+(title)+ "---------------");
+          System.out.println("Project: "+(project)+" .  Due date : "+(dueDate)+ " . Status: "+(status));
+          System.out.println("Description: "+(description));
+      }
 
-   
-   /** used for save function (for method writeFile in class TaskOrganizer)
+      /** used for save function (for method writeFile in class TaskOrganizer)
      */
     public String toString() {
     return title + "   " + project + "   " + dueDate + "   " + description+ "   " + status;
     }
-  
 
 }
