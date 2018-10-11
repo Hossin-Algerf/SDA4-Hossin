@@ -83,5 +83,4 @@ package taskorganizerpackage;
     public String toString() {
     return title + "   " + project + "   " + dueDate + "   " + description+ "   " + status;
     }
-
 }

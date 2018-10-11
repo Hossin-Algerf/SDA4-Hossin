@@ -101,8 +101,8 @@ public class TaskOrganizer
             case EditTask:
                 editTask() ;
                 break;
-            case EditDetails:
-                editTaskDetails();
+            case UpdateTask:
+                updateTask();
                 break;
             case SaveAndQuit:
                 wantToQuit = quit(command);
@@ -170,7 +170,7 @@ public class TaskOrganizer
         }
     }
     public void editTask() {
-        System.out.println("Please enter (5)to edit an existing task ");
+        System.out.println("Please enter (5)to update an existing task ");
         System.out.println("Or enter     (6)to mark a task as Done ");
         System.out.println("Or enter     (9)to Remove a task ");
     }
@@ -291,10 +291,10 @@ public class TaskOrganizer
 
     /** editing selected task
      */
-    public void editTaskDetails()
+    public void updateTask()
     {
 
-        System.out.println("Plz enter title of a task to edit: ");
+        System.out.println("Plz enter the title of the task you want to update : ");
         String title2 = parser.nextLine();
 
         String newTitle = null;
@@ -347,7 +347,7 @@ public class TaskOrganizer
                     System.out.println("Project has not changed ,");
                 }
                 System.out.println("Due date of this task is: "+(t.getDueDate()));
-                System.out.println("Type (1)to Enter new DueDate ,or press (Enter) to keep it unchanged: ");
+                System.out.println("Type (1)to Enter new Due date ,or press (Enter) to keep it unchanged: ");
                 String choose =parser.nextLine();
                 if(!choose.equals("")){
                     Scanner scanner = new Scanner(System.in);
@@ -368,7 +368,7 @@ public class TaskOrganizer
                     newDueDate = dateFormat.format(date); }
                 else{
                     newDueDate = t.getDueDate() ;
-                    System.out.println("DueDate has not changed ,");
+                    System.out.println("Due date has not changed ,");
                 }
                 System.out.println("Description of this task : "+(t.getDescription())+" .");
                 System.out.println("Enter new Description or press (Enter) to keep it unchanged: ");
@@ -383,7 +383,7 @@ public class TaskOrganizer
 
 
                 t.setDetails(newTitle,newProject ,newDueDate,newDescription);
-                System.out.println("Editing task by title("+ (newTitle) +") is finished");
+                System.out.println("Updating task by title("+ (newTitle) +") is finished");
             }
         }
         if (finded == false)
