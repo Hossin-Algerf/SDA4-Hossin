@@ -1,16 +1,9 @@
 package taskorganizerpackage;
 import java.util.*;
 import java.io.*;
-<<<<<<< HEAD:taskorganizerpackage/TaskOrganizer.java
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
-=======
-import java.util.Iterator;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-import java.util.Comparator;
->>>>>>> f715c8f7a9a474e46dec115a8dd769981e751229:TaskOrganizer.java
 /**
  * The main driver class  .
  *
@@ -32,14 +25,9 @@ public class TaskOrganizer
         taskList = new ArrayList<>();
         parser = new Parser();
     }
-    
-
-<<<<<<< HEAD:taskorganizerpackage/TaskOrganizer.java
 
 
-=======
-    
->>>>>>> f715c8f7a9a474e46dec115a8dd769981e751229:TaskOrganizer.java
+
     /**
      *  Main process routine.  Loops until app exit.
      */
@@ -131,11 +119,7 @@ public class TaskOrganizer
                 break;
 
             case ByProject:
-<<<<<<< HEAD:taskorganizerpackage/TaskOrganizer.java
                 sortProjectPrint (taskList);
-=======
-                sortprojectPrint (taskList);
->>>>>>> f715c8f7a9a474e46dec115a8dd769981e751229:TaskOrganizer.java
                 break;
             case MarkAsDone:
                 MarkItDone();
@@ -146,7 +130,6 @@ public class TaskOrganizer
         }
         return wantToQuit;
     }
-<<<<<<< HEAD:taskorganizerpackage/TaskOrganizer.java
 
     /** implementing Comparator to enable sorting  .
      */
@@ -182,39 +165,6 @@ public class TaskOrganizer
         }
     }
 
-=======
-        /** implementing Comparator to enable sorting  .
-     */
-     public class dueDateSorter implements Comparator<Task>{
-     public int compare(Task o1, Task o2) {
-       return o1.getDueDate().compareTo(o2.getDueDate());
-      }
-     } 
-     
-     public class projectSorter implements Comparator<Task>{
-     public int compare(Task o1, Task o2) {
-       return o1.getProject().compareTo(o2.getProject());
-     }
-     } 
-        /** showing a sorted list of tasks .
-     */     
-        public void sortDueDatePrint(ArrayList<Task> tasklist)
-    {
-        Collections.sort(taskList, new dueDateSorter());
-          for(Task d : taskList) {
-            d.TaskInfo();
-        }
-    }
-    
-    public void sortprojectPrint(ArrayList<Task> tasklist)
-    {
-        Collections.sort(taskList, new projectSorter());
-          for(Task p : taskList) {
-            p.TaskInfo();
-        }
-    } 
-    
->>>>>>> f715c8f7a9a474e46dec115a8dd769981e751229:TaskOrganizer.java
     /**
      * executing command "1" , to show task list .
      */
@@ -287,7 +237,7 @@ public class TaskOrganizer
             }}
         String status = "Not yet" ;
         taskList.add(new Task(title,project,dueDate,description,status));
-    }   
+    }
 
     /** calculates how many tasks are done
      */

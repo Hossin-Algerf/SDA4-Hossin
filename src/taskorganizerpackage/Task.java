@@ -1,29 +1,14 @@
-<<<<<<< HEAD:taskorganizerpackage/Task.java
 package taskorganizerpackage;
 
-=======
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Comparator;
->>>>>>> f715c8f7a9a474e46dec115a8dd769981e751229:Task.java
 /**
  * A class that constructs tasks.
  *
  * @author (Hossin algerf)
  * @version (1)
  */
-<<<<<<< HEAD:taskorganizerpackage/Task.java
   public class Task
   {
   private String title ;
-=======
-public class Task
- {
- private String title ;
-
- private String project ;
->>>>>>> f715c8f7a9a474e46dec115a8dd769981e751229:Task.java
 
   private String project ;
 
@@ -140,14 +125,7 @@ public class Task
      */
     public String toString() {
     return title + "   " + project + "   " + dueDate + "   " + description+ "   " + status;
-<<<<<<< HEAD:taskorganizerpackage/Task.java
     }
   
-=======
-  }
-  
-  
-}
->>>>>>> f715c8f7a9a474e46dec115a8dd769981e751229:Task.java
 
 }
