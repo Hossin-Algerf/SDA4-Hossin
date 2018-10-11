@@ -13,11 +13,11 @@ public enum CommandWord
     // A value for each command word along with its
     // corresponding user interface string.
     ShowTaskList("1"), AddNewTask("2"), EditTask("3"),SaveAndQuit("4"), UNKNOWN("?")
-    ,ByDate ("6"), ByProject("7") ,EditDetails("8") ,MarkAsDone("9"),RemoveTask("10");
-    
+    ,EditDetails("5") ,MarkAsDone("6"),RemoveTask("9");
+
     // The command string.
     private String commandString;
-    
+
     /**
      * Initialise with the corresponding command string.
      * @param commandString The command string.
@@ -26,7 +26,7 @@ public enum CommandWord
     {
         this.commandString = commandString;
     }
-    
+
     /**
      * @return The command word as a string.
      */

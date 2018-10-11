@@ -90,36 +90,22 @@ public class TaskOrganizer
 
         switch (commandWord) {
             case UNKNOWN:
-                System.out.println("Please enter a valid command from the list");
+                System.out.println("Please enter a valid command: Show tasks(1), Add task(2),Edit task(3),Save And Quit(4)");
                 break;
-
             case ShowTaskList:
                 showTheList();
                 break;
-
             case AddNewTask:
                 addTask();
                 break;
-
             case EditTask:
-                ;
+                editTask() ;
                 break;
-
             case EditDetails:
                 editTaskDetails();
                 break;
-
             case SaveAndQuit:
-
                 wantToQuit = quit(command);
-                break;
-
-            case ByDate:
-                sortDueDatePrint();
-                break;
-
-            case ByProject:
-                sortProjectPrint ();
                 break;
             case MarkAsDone:
                 MarkItDone();
@@ -168,12 +154,26 @@ public class TaskOrganizer
     /**
      * executing command "1" , to show task list .
      */
-    public void showTheList()
-    {
-        System.out.println("Please enter (6)to list tasks by date ");
-        System.out.println("Or enter     (7)to list tasks by project ");
-    }
+    public void showTheList() {
 
+        System.out.println("Please enter (d)to list tasks by Due date ");
+        System.out.println("Or enter     (p)to list tasks by Project ");
+        System.out.println("Or press (Enter) to cancel Showing Task List ");
+        boolean show = true;
+        String choice;
+        while(show){
+            choice = parser.nextLine();
+            if (choice.equalsIgnoreCase("d")) {sortDueDatePrint();return; }
+            if (choice.equalsIgnoreCase("p")) {sortProjectPrint();return; }
+            if(!choice.equalsIgnoreCase("d") && !choice.equalsIgnoreCase("p")) {show = false;
+                System.out.println("cancelled Showing Task List"); }
+        }
+    }
+    public void editTask() {
+        System.out.println("Please enter (5)to edit an existing task ");
+        System.out.println("Or enter     (6)to mark a task as Done ");
+        System.out.println("Or enter     (9)to Remove a task ");
+    }
     /**
      * executing command "2" , adding a new Task .
      */
