@@ -1,14 +1,11 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+package taskorganizerpackage;
 import java.util.*;
-import java.lang.*;
 import java.io.*;
-import java.util.Iterator;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 /**
- * The main class  .
+ * The main driver class  .
  *
  * @author Hossin algerf
  * @version 1
@@ -18,25 +15,27 @@ public class TaskOrganizer
 
     private ArrayList<Task> taskList;
     private Parser parser;
-    private static final String filepath="/Users/tmp-sda-1155/TaskOrganizerStorage1.txt"; 
+    private static final String filepath="/Users/tmp-sda-1155/TaskOrganizerStorage1.txt";
     /**
      * Constructor for class operations .
      */
     public TaskOrganizer()
     {
- 
+
         taskList = new ArrayList<>();
         parser = new Parser();
     }
 
+
+
     /**
      *  Main process routine.  Loops until app exit.
      */
-       public void startTaskOrganizer()
+    public void startTaskOrganizer()
     {
         readFile ();
         printWelcome();
-        
+
         /** Enter the main command loop.  repeatedly read commands and
          execute them until the app exits.*/
 
@@ -59,7 +58,7 @@ public class TaskOrganizer
         int done ;
         done = gotDone(taskList);
         System.out.println();
-        System.out.println("Welcome to Task editor!");
+        System.out.println("Welcome to Task Organizer !");
         System.out.println("You have "+ (taskList.size() - done) +" tasks todo and "+ done +" tasks are done!");
         System.out.println("Pick an option:");
         System.out.println("(1) Show Task List (by date or project)");
@@ -69,15 +68,15 @@ public class TaskOrganizer
         System.out.println();
 
     }
-    
-    //Exit app 
-       private boolean quit(Command command) 
+
+    //Exit app
+    private boolean quit(Command command)
     {
 
-            return true;  // signal that we want to quit
+        return true;  // signal that we want to quit
 
     }
-    
+
     /**
      * Given a command, process (that is: execute) the command.
      * @param command The command to be processed.
@@ -107,20 +106,20 @@ public class TaskOrganizer
                 break;
 
             case EditDetails:
-                editTaskDeatails();
+                editTaskDetails();
                 break;
 
             case SaveAndQuit:
-                
+
                 wantToQuit = quit(command);
                 break;
 
             case ByDate:
-                ;
+                sortDueDatePrint(taskList);
                 break;
 
             case ByProject:
-                readFile ();
+                sortProjectPrint (taskList);
                 break;
             case MarkAsDone:
                 MarkItDone();
@@ -132,8 +131,42 @@ public class TaskOrganizer
         return wantToQuit;
     }
 
+    /** implementing Comparator to enable sorting  .
+     */
+    public class dueDateSorter implements Comparator<Task>{
+        public int compare(Task o1, Task o2) {
+            return o1.getDueDate().compareTo(o2.getDueDate());
+        }
+    }
+
+    public class projectSorter implements Comparator<Task>{
+        public int compare(Task o1, Task o2) {
+            return o1.getProject().compareTo(o2.getProject());
+        }
+    }
+
+    /** showing a sorted lists of tasks .
+     */
+    public void sortDueDatePrint(ArrayList<Task> tasklist)
+    {
+        System.out.println("list of tasks sorted by Due date :");
+        Collections.sort(taskList, new dueDateSorter());
+        for(Task d : taskList) {
+            d.TaskInfoByDate();
+        }
+    }
+
+    public void sortProjectPrint(ArrayList<Task> tasklist)
+    {
+        System.out.println("list of tasks sorted by Project :");
+        Collections.sort(taskList, new projectSorter());
+        for(Task p : taskList) {
+            p.TaskInfoByProject();
+        }
+    }
+
     /**
-     * excuting command "1" , to show task list .
+     * executing command "1" , to show task list .
      */
     public void showTheList()
     {
@@ -142,7 +175,7 @@ public class TaskOrganizer
     }
 
     /**
-     * excuting command "2" , adding a new Task .
+     * executing command "2" , adding a new Task .
      */
     public void addTask()
     {
@@ -153,49 +186,56 @@ public class TaskOrganizer
             System.out.println("Enter title : ");
             title = parser.nextLine();
             if (!title.equals("")){
-                
-            if (taskListContainsTitle(title)){
-                System.out.println("Titel ("+ (title) +") already used,enter a new title");
-            } else {
-                titleWanted = false;
-            }
+
+                if (taskListContainsTitle(title)){
+                    System.out.println("Title ("+ (title) +") already used,enter a new title");
+                } else {
+                    titleWanted = false;
+                }
             }else {
-            System.out.println("title must be entered ,retry ");   }
-            
-            }
+                System.out.println("title must be entered ,retry ");   }
+
+        }
 
         boolean project1 = true;
-        String project = null  ;      
+        String project = null  ;
         while(project1){
             System.out.println("Enter project : ");
             project = parser.nextLine();
             if (project.equals("")){
-              System.out.println("project must be entered ,retry ");    } 
-              else {
+                System.out.println("project must be entered ,retry ");    }
+            else {
                 project1 = false;
-            }}
+            }
+        }
 
-        boolean dueDate1 = true;
-        String dueDate = null  ;      
-        while(dueDate1){
-            System.out.println("Enter dueDate : ");
-            dueDate = parser.nextLine();
-            if (dueDate.equals("")){
-              System.out.println("dueDate must be entered ,retry ");    } 
-              else {
-                dueDate1 = false;
-            }}           
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter dueDate by format: yyyy,mm,dd  .for example : 2018,12,25");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy,mm,dd");
+        Date date = null;
+        while (date == null) {
+            String line = scanner.nextLine();
+            try {
+                date = dateFormat.parse(line);
+            } catch (ParseException e) {
+                System.out.println("Sorry, that's not valid format. Please try again using: yyyy,mm,dd ");
+                System.out.println("yyyy for year,mm for month,dd for day date,example : 2019,04,03 ");
+            }
+        }
+        String dueDate = dateFormat.format(date);
+
+
         boolean description1 = true;
-        String description = null  ;      
+        String description = null  ;
         while(description1){
             System.out.println("Enter description : ");
             description = parser.nextLine();
             if (description.equals("")){
-              System.out.println("description must be entered ,retry ");    } 
-              else {
+                System.out.println("description must be entered ,retry ");    }
+            else {
                 description1 = false;
-            }}        
-            String status = "todo" ; 
+            }}
+        String status = "Not yet" ;
         taskList.add(new Task(title,project,dueDate,description,status));
     }
 
@@ -210,9 +250,9 @@ public class TaskOrganizer
         }
         return x;
     }
-    
+
     /** remove selected task.
-    */   
+     */
     public void removeATask ()
     {
         System.out.println("Plz enter title of a task to remove: ");
@@ -227,7 +267,7 @@ public class TaskOrganizer
 
         }
     }
-     
+
     /** to mark a task as done .
      */
     public void MarkItDone()
@@ -242,20 +282,20 @@ public class TaskOrganizer
                 t.MarkDone();
                 System.out.println("Task by title ( "+ (titleDone) +" )is marked as Done");
             }
-            
+
         }
         if (finded == false)
-            System.out.println("there is no task by this title");        
+            System.out.println("there is no task by this title");
     }
 
     /** editing selected task
      */
-    public void editTaskDeatails()
+    public void editTaskDetails()
     {
 
         System.out.println("Plz enter title of a task to edit: ");
         String title2 = parser.nextLine();
-        
+
         String newTitle = null;
         boolean finded = false;
         String newProject ;
@@ -268,13 +308,13 @@ public class TaskOrganizer
         String getDueDate;
         String getDescription;
         ArrayList<String> titles = getTitleList();
-   
+
         for (Task t : taskList)
         {
             if ((t.getTitle().equals(title2)))
             {
                 finded = true;
-                System.out.println("Enter new title or press (Enter) to keep : ");
+                System.out.println("Enter new title or press (Enter) to keep it unchanged : ");
                 String title3 =parser.nextLine();
                 if(!title3.equals(""))
                 {
@@ -284,7 +324,7 @@ public class TaskOrganizer
 
                         if ((q.getTitle().equals(title3)))
                         {
-                            System.out.println("Titel ("+ (title3) +")already exists,so title has not changed,");
+                            System.out.println("Title ("+ (title3) +")already exists,so title has not changed,");
                             newTitle = title2;
                             break;
 
@@ -300,8 +340,8 @@ public class TaskOrganizer
                     newTitle = t.getTitle() ;
                     System.out.println("title has not changed ,");
                 }
-                /////////
-                System.out.println("Enter new Project name or press (Enter) to keep : ");
+                System.out.println("Project of This task is: "+(t.getProject()));
+                System.out.println("Enter new Project name or press (Enter) to keep it unchanged: ");
                 String project3 =parser.nextLine();
                 if(!project3.equals("")){
                     newProject =  project3 ;
@@ -310,16 +350,32 @@ public class TaskOrganizer
                     newProject = t.getProject() ;
                     System.out.println("Project has not changed ,");
                 }
-                System.out.println("Enter new DueDate or press (Enter) to keep : ");
-                String dueDate3=parser.nextLine();
-                if(!dueDate3.equals("")){
-                    newDueDate =  dueDate3 ;
-                }
+                System.out.println("Due date of This task is: "+(t.getDueDate()));
+                System.out.println("Type (1)to Enter new DueDate ,or press (Enter) to keep it unchanged: ");
+                String choose =parser.nextLine();
+                if(!choose.equals("")){
+                    Scanner scanner = new Scanner(System.in);
+                    System.out.println("Enter Due date by format: yyyy,mm,dd  .for example : 2018,12,25");
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy,mm,dd");
+                    Date date = null;
+
+                    while (date == null) {
+                        String line = scanner.nextLine();
+
+                        try {
+                            date = dateFormat.parse(line);
+                        } catch (ParseException e) {
+                            System.out.println("Sorry, that's not valid format. Please try again using: yyyy,mm,dd ");
+                            System.out.println("yyyy for year,mm for month,dd for day date,example : 2019,04,03 ");
+                        }
+                    }
+                    newDueDate = dateFormat.format(date); }
                 else{
                     newDueDate = t.getDueDate() ;
                     System.out.println("DueDate has not changed ,");
                 }
-                System.out.println("Enter new Description or press (Enter) to keep : ");
+                System.out.println("Description of This task : "+(t.getDescription())+" .");
+                System.out.println("Enter new Description or press (Enter) to keep it unchanged: ");
                 String description3=parser.nextLine();
                 if(!description3.equals("")){
                     newDescription =  description3 ;
@@ -339,7 +395,7 @@ public class TaskOrganizer
     }
 
     /** check if a title already exists in existing Task objects 
-    */
+     */
     private boolean taskListContainsTitle(String titleName)
     {
         for (Task t : taskList)
@@ -352,9 +408,9 @@ public class TaskOrganizer
         }
         return false;
     }
-    
+
     /** create arraylist of titles existing in existing Task objects .
-    */
+     */
     private ArrayList<String> getTitleList()
     {
         ArrayList<String> list = new ArrayList<>();
@@ -364,44 +420,39 @@ public class TaskOrganizer
         }
         return list;
     }
-  
+
     /** save existing tasks into a text file.
-    */    
-     private void writeFile(List<Task> taskList) {
-       String fileName = "/Users/tmp-sda-1155/TaskOrganizerStorage1.txt";
+     */
+    private void writeFile(List<Task> taskList) {
+        String fileName = "/Users/tmp-sda-1155/TaskOrganizerStorage1.txt";
 
-      try {
-        FileWriter fileWriter = new FileWriter(fileName);
+        try {
+            FileWriter fileWriter = new FileWriter(fileName);
 
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        for (Task ir : taskList) {
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            for (Task ir : taskList) {
 
-            bufferedWriter.write(ir.toString() + System.getProperty("line.separator"));
+                bufferedWriter.write(ir.toString() + System.getProperty("line.separator"));
 
+            }
+            bufferedWriter.close();
+        } catch (IOException ex) {
+            System.out.println("Error writing to file (" + fileName + ")");
         }
-        bufferedWriter.close();
-      } catch (IOException ex) {
-        System.out.println("Error writing to file (" + fileName + ")");
-      }
     }
     /** load tasks from a text file that the app uses to save tasks.
-    */   
-     private void readFile ()
+     */
+    private void readFile ()
     {
-     try { 
-      Scanner s = new Scanner(new File("/Users/tmp-sda-1155/TaskOrganizerStorage1.txt"));
-    
-      while (s.hasNextLine()) {
-       String[] split = s.nextLine().split("   ");
-        taskList.add(new Task(split[0], split[1], split[2], split[3], split[4])); 
-     }
-     } catch (IOException ex) {
-        System.out.println("Error loading tasks");
-     }  
+        try {
+            Scanner s = new Scanner(new File("/Users/tmp-sda-1155/TaskOrganizerStorage1.txt"));
+
+            while (s.hasNextLine()) {
+                String[] split = s.nextLine().split("   ");
+                taskList.add(new Task(split[0], split[1], split[2], split[3], split[4]));
+            }
+        } catch (IOException ex) {
+            System.out.println("Error loading tasks");
+        }
     }
 }
-
-
-
-
-

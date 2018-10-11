@@ -1,3 +1,5 @@
+package taskorganizerpackage;
+
 import java.util.Scanner;
 
 /**
@@ -58,4 +60,3 @@ public class Parser
          return reader.nextLine();
     }
 }
-

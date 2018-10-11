@@ -1,34 +1,30 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.io.Serializable;
+package taskorganizerpackage;
+
 /**
- * A class that contructs tasks.
+ * A class that constructs tasks.
  *
  * @author (Hossin algerf)
  * @version (1)
  */
-public class Task implements Serializable
- {
- private String title ;
+  public class Task
+  {
+  private String title ;
 
- private String project ;
+  private String project ;
 
- private String dueDate ;
+  private String dueDate ;
+  
+  private String description ;
 
- private String description ;
-
- private String status  ;
- 
- private static final long serialVersionUID = 1L;
- //Constructor
+  private String status  ;
+   //Constructor
   public Task (String taskTitle,String taskProject ,String taskDueDate,String taskDescription,String taskstatus)
- {
- title = taskTitle;
- project=taskProject;
- dueDate=taskDueDate;
- description=taskDescription;
- status= taskstatus;
+  {
+  title = taskTitle;
+  project=taskProject;
+  dueDate=taskDueDate;
+  description=taskDescription;
+  status= taskstatus;
 
   }
   
@@ -103,15 +99,33 @@ public class Task implements Serializable
    public void TaskInfo()
    {
     System.out.println  ("Task title: "+(title)+".  project: "+(project)+".  dueDate : "+(dueDate)+
-     ".  description: "+(description)+".  done ?: "+(status)); 
+    ".  done ?: "+(status));
+     System.out.println ("description: "+(description)); 
+
+    }   
+ 
+    public void TaskInfoByDate()
+   {
+    System.out.println  ("Due Date : "+(dueDate)+". Task title: "+(title)+".  project: "+(project)+
+    ".  Done ?: "+(status));
+     System.out.println ("Description: "+(description)); 
+
+    }   
+    
+    public void TaskInfoByProject()
+   {
+    System.out.println  ("project: "+(project)+". Task title: "+(title)+".  Due Date : "+(dueDate)+
+    ".  done ?: "+(status));
+     System.out.println ("description: "+(description)); 
 
     }   
 
-    /** used for save function 
+   
+   /** used for save function (method writeFile in class TaskOrganizer)
      */
     public String toString() {
     return title + "   " + project + "   " + dueDate + "   " + description+ "   " + status;
-  }
-}
+    }
+  
 
- 
+}
