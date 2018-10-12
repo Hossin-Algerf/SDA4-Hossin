@@ -14,7 +14,7 @@ simple user friendly text based interface.
 
 A task has 4 properties :
 
-A title, a project, due date and the tasks description.
+A title which is unique for each task, a project, due date and the task's description.
 
 # You can add tasks ,update a task's details , mark a task as Done
 
