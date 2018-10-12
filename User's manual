@@ -1,0 +1,48 @@
+
+
+## Task Organizer
+
+#
+
+#   User&#39;s manual
+
+**About the app :**
+
+With Task Organizer you can create and manage your tasks, using a
+
+simple user friendly text based interface.
+
+A task has 4 properties :
+
+A title, a project, due date and the tasks description.
+
+You can add tasks ,update a task&#39;s details , mark a task as Done
+
+ and remove a task.
+
+A list of existing tasks can be displayed , sorted by due date or project .
+
+Tasks will be saved and loaded from a text file called
+
+&quot;TaskOrganizerStorage&quot; , it can be found in the app&#39;s directory .
+
+**Key commands :**
+
+You have to type the command shown between braces ( ) and then press (Enter) .
+
+Show a list of tasks (1)  gives 2 options:
+
+                     option (d) shows a list of tasks sorted by Due date .
+
+                     option (p) shows a list of tasks sorted by Project .
+
+ Add new task(2)
+
+ Edit a task(3) : option (5) update details of a task .
+
+                         option (6) mark a task as done .
+
+                         option (9) remove a task .
+
+Save and quit (4) : it will save tasks and exit the app .
+
