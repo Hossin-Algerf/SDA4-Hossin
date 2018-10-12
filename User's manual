@@ -4,7 +4,7 @@
 
 #
 
-#   User&#39;s manual
+#   User's manual
 
 **About the app :**
 
@@ -16,17 +16,17 @@ A task has 4 properties :
 
 A title, a project, due date and the tasks description.
 
-You can add tasks ,update a task&#39;s details , mark a task as Done
+# You can add tasks ,update a task's details , mark a task as Done
 
- and remove a task.
+ or remove a task.
 
 A list of existing tasks can be displayed , sorted by due date or project .
 
 Tasks will be saved and loaded from a text file called
 
-&quot;TaskOrganizerStorage&quot; , it can be found in the app&#39;s directory .
+"askOrganizerStorage" , it can be found in the app's directory .
 
-**Key commands :**
+** Key commands :**
 
 You have to type the command shown between braces ( ) and then press (Enter) .
 
