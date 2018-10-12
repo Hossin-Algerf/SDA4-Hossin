@@ -24,7 +24,7 @@ A list of existing tasks can be displayed , sorted by due date or project .
 
 Tasks will be saved and loaded from a text file called
 
-"askOrganizerStorage" , it can be found in the app's directory .
+"TaskOrganizerStorage" , it can be found in the app's directory .
 
 ** Key commands :**
 
@@ -36,9 +36,9 @@ Show a list of tasks (1)  gives 2 options:
 
                      option (p) shows a list of tasks sorted by Project .
 
- Add new task(2)
+ Add new task (2)
 
- Edit a task(3) : option (5) update details of a task .
+ Edit a task (3) :       option (5) update details of a task .
 
                          option (6) mark a task as done .
 
