@@ -10,8 +10,7 @@ package taskorganizerpackage;
  * The way this is used is: Commands are already checked for being valid
  * command words. If the user entered an invalid command (a word that is not
  * known) then the CommandWord is UNKNOWN.
- * 
- * @author Hossin algerf 
+ * @author  Michael Kölling and David J. Barnes and Hossin algerf
  * @version 1
  */
 

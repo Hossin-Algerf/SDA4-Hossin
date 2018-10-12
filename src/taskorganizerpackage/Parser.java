@@ -1,21 +1,17 @@
 package taskorganizerpackage;
 
+import java.io.InputStream;
 import java.util.Scanner;
 
 /**
  * This class is part of the "TaskOrganizer" application. 
- * "TaskOrganizer" is a simple, task manager.  
- * 
- * This parser reads user input and tries to interpret it as a command.
- *  Every time it is called it reads a line from the terminal and
- * tries to interpret the line as a number command. It returns the command
- * as an object of class Command.
+
+ * This parser reads user input
  *
  * The parser has a set of known command numbers. It checks user input against
  * the known commands, and if the input is not one of the known commands, it
  * returns a command object that is marked as an unknown command.
- * 
- * @author Hossin algerf 
+ * @author  Michael Kölling and David J. Barnes and Hossin algerf
  * @version 1
  */
 public class Parser 
@@ -52,4 +48,9 @@ public class Parser
     public String nextLine(){
          return reader.nextLine();
     }
+
+    public void updateSystemIn(){
+        reader = new Scanner(System.in);
+    }
+
 }

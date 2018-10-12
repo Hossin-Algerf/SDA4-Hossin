@@ -5,9 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 /**
- * The main driver class  .
- *
- * @author Hossin algerf
+ * The core class for doing the main operations of the app Task organizer.
+ ** @author  Michael Kölling and David J. Barnes and Hossin algerf
  * @version 1
  */
 public class TaskOrganizer
@@ -15,9 +14,9 @@ public class TaskOrganizer
 
     private ArrayList<Task> taskList;
     private Parser parser;
-    private static final String filepath="/Users/tmp-sda-1155/TaskOrganizerStorage1.txt";
+    private static final String filepath="TaskOrganizerStorage.txt";
     /**
-     * Constructor for class operations .
+     * Constructor for class TaskOrganizer initialize the Arraylist of tasks , and use Parser class .
      */
     public TaskOrganizer()
     {
@@ -29,7 +28,8 @@ public class TaskOrganizer
 
 
     /**
-     *  Main process routine.  Loops until app exit.
+     *  Main process routine.  Loops until app exit, at app start it will load tasks from file,and save
+     *  tasks on app exit
      */
     public void startTaskOrganizer()
     {
@@ -45,13 +45,13 @@ public class TaskOrganizer
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        writeFile(taskList);
+        writeToFile(taskList);
         System.out.println("Thank you for using TaskOrganizer .Good bye.");
 
     }
 
     /**
-     * Print out the opening message for the user.
+     * Print out the opening message for the user , and informs how many tasks to do and how many are done
      */
     private void printWelcome()
     {
@@ -69,7 +69,7 @@ public class TaskOrganizer
 
     }
 
-    //Exit app
+    /**Exit app */
     private boolean quit(Command command)
     {
 
@@ -117,21 +117,22 @@ public class TaskOrganizer
         return wantToQuit;
     }
 
-    /** implementing Comparator to enable sorting  .
+    /** implementing Comparator to class Task to enable sorting  .
      */
     public class dueDateSorter implements Comparator<Task>{
         public int compare(Task o1, Task o2) {
             return o1.getDueDate().compareTo(o2.getDueDate());
         }
     }
-
+    /** implementing Comparator to class Task to enable sorting  .
+     */
     public class projectSorter implements Comparator<Task>{
         public int compare(Task o1, Task o2) {
-            return o1.getProject().compareTo(o2.getProject());
+            return o1.getProject().compareToIgnoreCase(o2.getProject());
         }
     }
 
-    /** showing a sorted lists of tasks .
+    /** showing a sorted lists of tasks by due date.
      */
     public void sortDueDatePrint()
     {
@@ -141,7 +142,8 @@ public class TaskOrganizer
             d.taskInfo();
         }
     }
-
+    /** showing a sorted lists of tasks by project.
+     */
     public void sortProjectPrint()
     {
         System.out.println("list of tasks sorted by Project :");
@@ -209,12 +211,11 @@ public class TaskOrganizer
             }
         }
 
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter dueDate by format: yyyy,mm,dd  .for example : 2018,12,25");
         DateFormat dateFormat = new SimpleDateFormat("yyyy,mm,dd");
         Date date = null;
         while (date == null) {
-            String line = scanner.nextLine();
+            String line = parser.nextLine();
             try {
                 date = dateFormat.parse(line);
             } catch (ParseException e) {
@@ -252,28 +253,38 @@ public class TaskOrganizer
         return x;
     }
 
-    /** remove selected task.
+    /** executing command "9"  remove selected task , it asks the user to type (yes) to confirm removal.
      */
     public void removeATask ()
     {
-        System.out.println("Plz enter title of a task to remove: ");
+        System.out.println("Enter title of the task you want to remove: ");
         String titleRemove = parser.nextLine();
 
         for (Iterator<Task> it = taskList.iterator() ; it.hasNext();){
             Task taskList = it.next();
             if(taskList.getTitle().equals(titleRemove)){
-                it.remove();
-                System.out.println("Task by title ( "+ (titleRemove) +" )is removed");
+                System.out.println("Enter (yes) to remove ,or press (Enter) to cancel");
+                boolean show = true;
+                String choice;
+                while(show){
+                    choice = parser.nextLine();
+                    if (choice.equalsIgnoreCase("yes")) {it.remove();
+                        System.out.println("Task by title ( "+ (titleRemove) +" )is removed" );
+                        return;}
+                    if(!choice.equalsIgnoreCase("yes")) {show = false;
+                        System.out.println("cancelled removing the task");
+                    }
+                }
             }
 
         }
     }
 
-    /** to mark a task as done .
+    /** executing command "6" , to mark a task as done .
      */
     public void MarkItDone()
     {
-        System.out.println("Plz enter title of a task to mark as Done: ");
+        System.out.println("Enter title of the task you want to mark as Done: ");
         String titleDone = parser.nextLine();
         boolean finded = false;
         for (Task t : taskList){
@@ -289,12 +300,13 @@ public class TaskOrganizer
             System.out.println("there is no task by this title");
     }
 
-    /** editing selected task
+    /**
+     * executing command "5" , updating a task .
      */
     public void updateTask()
     {
 
-        System.out.println("Plz enter the title of the task you want to update : ");
+        System.out.println("Enter the title of the task you want to update : ");
         String title2 = parser.nextLine();
 
         String newTitle = null;
@@ -350,13 +362,13 @@ public class TaskOrganizer
                 System.out.println("Type (1)to Enter new Due date ,or press (Enter) to keep it unchanged: ");
                 String choose =parser.nextLine();
                 if(!choose.equals("")){
-                    Scanner scanner = new Scanner(System.in);
+
                     System.out.println("Enter Due date by format: yyyy,mm,dd  .for example : 2018,12,25");
                     DateFormat dateFormat = new SimpleDateFormat("yyyy,mm,dd");
                     Date date = null;
 
                     while (date == null) {
-                        String line = scanner.nextLine();
+                        String line = parser.nextLine();
 
                         try {
                             date = dateFormat.parse(line);
@@ -405,7 +417,7 @@ public class TaskOrganizer
         return false;
     }
 
-    /** create arrayList of titles existing in existing Task objects .
+    /** create arrayList of all titles in existing Task objects .
      */
     private ArrayList<String> getTitleList()
     {
@@ -419,21 +431,21 @@ public class TaskOrganizer
 
     /** save existing tasks into a text file.
      */
-    private void writeFile(List<Task> taskList) {
-        String fileName = "/Users/tmp-sda-1155/TaskOrganizerStorage1.txt";
+    private void writeToFile(List<Task> taskList) {
+        String fileName = "TaskOrganizerStorage.txt";
 
         try {
             FileWriter fileWriter = new FileWriter(fileName);
 
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            for (Task ir : taskList) {
+            for (Task wr : taskList) {
 
-                bufferedWriter.write(ir.toString() + System.getProperty("line.separator"));
+                bufferedWriter.write(wr.toString() + System.getProperty("line.separator"));
 
             }
             bufferedWriter.close();
         } catch (IOException ex) {
-            System.out.println("Error writing to file (" + fileName + ")");
+            System.out.println("Error writing tasks to file (" + fileName + ")");
         }
     }
     /** load tasks from a text file that the app uses to save tasks.
@@ -441,14 +453,18 @@ public class TaskOrganizer
     private void readFile ()
     {
         try {
-            Scanner s = new Scanner(new File("/Users/tmp-sda-1155/TaskOrganizerStorage1.txt"));
+            Scanner r = new Scanner(new File("TaskOrganizerStorage.txt"));
 
-            while (s.hasNextLine()) {
-                String[] split = s.nextLine().split("   ");
+            while (r.hasNextLine()) {
+                String[] split = r.nextLine().split(" Ü° ");
                 taskList.add(new Task(split[0], split[1], split[2], split[3], split[4]));
             }
         } catch (IOException ex) {
-            System.out.println("Error loading tasks");
+            System.out.println("Error loading tasks from file ");
         }
+    }
+
+    public void updateSystemIn(){
+        parser.updateSystemIn();
     }
 }

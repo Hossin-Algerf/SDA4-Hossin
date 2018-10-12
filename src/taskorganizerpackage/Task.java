@@ -1,10 +1,10 @@
 package taskorganizerpackage;
 
 /**
- * A class that constructs tasks.
+ * A class holds tasks.
  *
- * @author (Hossin algerf)
- * @version (1)
+ * @author Hossin algerf
+ * @version 1
  */
   public class Task
   {
@@ -17,7 +17,8 @@ package taskorganizerpackage;
   private String description ;
 
   private String status  ;
-   //Constructor
+      /** constructor for tasks ,holds title,project,due date and description
+       */
   public Task (String taskTitle,String taskProject ,String taskDueDate,String taskDescription,String taskStatus)
   {
   title = taskTitle;
@@ -63,7 +64,7 @@ package taskorganizerpackage;
         description = newDescription ;
     }
 
-  /**mark a task as done 
+  /** change status to ( done )
      */
   public void MarkDone ()
    {
@@ -73,14 +74,14 @@ package taskorganizerpackage;
       public void taskInfo()
       {
 
-          System.out.println("----------- Task title:  "+(title)+ "---------------");
+          System.out.println("----------- Task title:  "+(title)+ "  ---------------");
           System.out.println("Project: "+(project)+" .  Due date : "+(dueDate)+ " . Status: "+(status));
           System.out.println("Description: "+(description));
       }
 
-      /** used for save function (for method writeFile in class TaskOrganizer)
+      /** used for save function (for method writeToFile in class TaskOrganizer)
      */
     public String toString() {
-    return title + "   " + project + "   " + dueDate + "   " + description+ "   " + status;
+    return title + " Ü° " + project + " Ü° " + dueDate + " Ü° " + description+ " Ü° " + status;
     }
 }

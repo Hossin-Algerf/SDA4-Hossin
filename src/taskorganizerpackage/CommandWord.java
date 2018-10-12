@@ -1,9 +1,8 @@
 package taskorganizerpackage;
 
 /**
- * Representations for all the valid command words for the game
- * along with a string in a particular language.
- * @author Hossin algerf 
+ * Representations for all the valid command words for the app
+ * @author  Michael Kölling and David J. Barnes and Hossin algerf
  * @version 1
  */
 
